@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reading Tests – Odpovědi & Tipy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #181c27;
+    --card2: #1e2235;
+    --accent: #f0c040;
+    --accent2: #7eb8f7;
+    --green: #5edfa0;
+    --red: #f07070;
+    --text: #e8eaf0;
+    --muted: #8890aa;
+    --border: #2a304a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  header {
+    background: linear-gradient(135deg, #12162090 0%, #0f111700 100%),
+                repeating-linear-gradient(45deg, #ffffff04 0px, #ffffff04 1px, transparent 1px, transparent 12px);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse, #f0c04020 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  header p {
+    color: var(--muted);
+    margin-top: 0.6rem;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── Nav ── */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    padding: 1.4rem 2rem;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 0.35rem 0.9rem;
+    border-radius: 99px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  nav a:hover { color: var(--accent); border-color: var(--accent); background: #f0c04010; }
+
+  /* ── Main ── */
+  main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 5rem;
+  }
+
+  /* ── Section header ── */
+  .test-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 3.5rem 0 1.8rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border);
+  }
+  .test-badge {
+    background: var(--accent);
+    color: #0f1117;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+  .test-badge.b1 { background: var(--accent2); }
+  .test-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ── Part header ── */
+  .part-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 2.2rem 0 1rem;
+  }
+  .part-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    background: #7eb8f710;
+    border: 1px solid #7eb8f730;
+    padding: 0.2rem 0.65rem;
+    border-radius: 99px;
+  }
+  .part-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  /* ── Answer card ── */
+  .answer-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 0.8rem;
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0 1rem;
+    transition: border-color 0.2s;
+  }
+  .answer-card:hover { border-color: #3a4060; }
+
+  .q-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.3;
+    padding-top: 2px;
+  }
+
+  .q-content {}
+
+  .q-statement {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 0.45rem;
+    font-style: italic;
+  }
+
+  .answer-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.22rem 0.75rem;
+    border-radius: 99px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    margin-bottom: 0.55rem;
+  }
+  .pill-P { background: #5edfa020; color: var(--green); border: 1px solid #5edfa040; }
+  .pill-N { background: #f0707020; color: var(--red);   border: 1px solid #f0707040; }
+  .pill-A { background: #f0c04018; color: var(--accent); border: 1px solid #f0c04035; }
+  .pill-B { background: #7eb8f715; color: var(--accent2); border: 1px solid #7eb8f730; }
+  .pill-C { background: #c07ef815; color: #c07ef8; border: 1px solid #c07ef830; }
+  .pill-D { background: #5edfa015; color: var(--green); border: 1px solid #5edfa030; }
+  .pill-E { background: #f09040a0; color: #f09040; border: 1px solid #f0904030; }
+  .pill-F { background: #f0405020; color: #f07090; border: 1px solid #f0409040; }
+  .pill-G { background: #40c0f020; color: #40d0f0; border: 1px solid #40c0f030; }
+
+  .explanation {
+    font-size: 0.87rem;
+    color: #bbc3d8;
+    line-height: 1.6;
+  }
+  .explanation strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .key-phrase {
+    background: #f0c04015;
+    border-left: 3px solid var(--accent);
+    padding: 0.3rem 0.6rem;
+    margin: 0.4rem 0 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.82rem;
+    color: #d4aa50;
+    font-style: italic;
+  }
+
+  /* ── Tips section ── */
+  .tips-section {
+    margin-top: 3.5rem;
+    background: linear-gradient(135deg, #1e2235 0%, #161927 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem 2rem 2.4rem;
+  }
+  .tips-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.7rem;
+    color: var(--accent);
+    margin-bottom: 1.6rem;
+  }
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .tip-card {
+    background: #0f1117;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.2rem;
+  }
+  .tip-card h4 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+  .tip-card p, .tip-card li {
+    font-size: 0.86rem;
+    color: #bbc3d8;
+    line-height: 1.6;
+  }
+  .tip-card ul { padding-left: 1.1rem; }
+  .tip-card li { margin-bottom: 0.25rem; }
+
+  .tip-type-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin: 1.5rem 0 0.7rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+
+  @media (max-width: 600px) {
+    .answer-card { grid-template-columns: 1.8rem 1fr; gap: 0 0.7rem; }
+    .q-num { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Reading Tests<br>Odpovědi & Vysvětlení</h1>
+  <p>Didaktický test (maturita) &nbsp;·&nbsp; B1 Preliminary &nbsp;·&nbsp; Příprava na zkoušku</p>
+</header>
+
+<nav>
+  <a href="#test1">Test 1 – Route 66 / George / Mini Zoo</a>
+  <a href="#test2">Test 2 – Comcast / Zack / Výlety</a>
+  <a href="#test3">Test 3 – B1 Preliminary</a>
+  <a href="#tips">💡 Tipy na přípravu</a>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════
+     TEST 1
+═══════════════════════════════════════════════════ -->
+<div id="test1">
+  <div class="test-header">
+    <span class="test-badge">Test 1</span>
+    <h2>Maturitní test – Route 66, George, Mini Zoo</h2>
+  </div>
+
+  <!-- 6. ČÁST – Route 66 -->
+  <div class="part-header">
+    <span class="part-label">6. část · Otázky 30–39</span>
+    <h3>Leták RouteRide – Pravda / Nepravda</h3>
+  </div>
+
+  <!-- 30 -->
+  <div class="answer-card">
+    <div class="q-num">30</div>
+    <div class="q-content">
+      <div class="q-statement">Fuel is included in the price.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text říká: <em>"Besides all the fuel needed, the price is for: accommodation, daily breakfast and dinner..."</em> – slovo <strong>besides</strong> znamená „kromě", tedy palivo v ceně <strong>není</strong>.
+        <div class="key-phrase">Klíčové slovo: "besides" = kromě (fuel je mimo cenu)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 31 -->
+  <div class="answer-card">
+    <div class="q-num">31</div>
+    <div class="q-content">
+      <div class="q-statement">A maximum of 24 clients can take part in one trip.</div>
+      <span class="answer-pill pill-P">✓ PRAVDA</span>
+      <div class="explanation">
+        Text uvádí: <em>"never more than 24 participants"</em> – maximálně 24 účastníků. Tvrzení je přesné.
+        <div class="key-phrase">Klíčové slovo: "never more than 24"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 32 -->
+  <div class="answer-card">
+    <div class="q-num">32</div>
+    <div class="q-content">
+      <div class="q-statement">You can either choose to use your own motorbike or rent one from RouteRide.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text výslovně uvádí: <em>"RouteRide does not provide any Vespas."</em> Pokud nemáš vlastní Vespu, musíš si ji půjčit jinde – RouteRide žádné <strong>nepůjčuje</strong>.
+        <div class="key-phrase">Past: tvrzení zní rozumně, ale text to vyvrací!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 33 -->
+  <div class="answer-card">
+    <div class="q-num">33</div>
+    <div class="q-content">
+      <div class="q-statement">Daily motorbike rides start at sunrise.</div>
+      <span class="answer-pill pill-P">✓ PRAVDA</span>
+      <div class="explanation">
+        Text říká: <em>"you will set out on the journey every day just as the sun comes up"</em> – přesný popis východu slunce (sunrise).
+        <div class="key-phrase">Klíčové: "just as the sun comes up" = at sunrise</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 34 -->
+  <div class="answer-card">
+    <div class="q-num">34</div>
+    <div class="q-content">
+      <div class="q-statement">In Arizona, the greatest danger for clients is the wildlife.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text zmiňuje divoká zvířata i horko, ale dodává: <em>"the animals there are not as dangerous as the heat."</em> Největším nebezpečím je tedy <strong>horko</strong>, ne zvířata.
+        <div class="key-phrase">Záludná: zvířata jsou zmíněna, ale teplo je nebezpečnější!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 35 -->
+  <div class="answer-card">
+    <div class="q-num">35</div>
+    <div class="q-content">
+      <div class="q-statement">The route can be changed, but only to wishes expressed before departure from LA or Chicago.</div>
+      <span class="answer-pill pill-P">✓ PRAVDA</span>
+      <div class="explanation">
+        Text říká: <em>"RouteRide will not make any [changes] if they are not informed of your wishes before the whole trip starts."</em> „Before the whole trip starts" = „before departure from LA or Chicago" – obě trasy totiž z těchto měst vyjíždějí, takže odchod z LA nebo Chicaga <strong>je</strong> začátek celé cesty. Tvrzení je věcně správně.
+        <div class="key-phrase">"before the whole trip starts" = "before departure from LA or Chicago" – totéž!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 36 -->
+  <div class="answer-card">
+    <div class="q-num">36</div>
+    <div class="q-content">
+      <div class="q-statement">Accommodation is provided in motels located on Route 66.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text říká: <em>"RouteRide has had the best experience with motels along local roads <strong>off</strong> Route 66."</em> Motely jsou vedle Route 66, <strong>nikoliv na ní</strong>. Navíc jsou levnější.
+        <div class="key-phrase">Klíčové slovo: "off Route 66" ≠ "on Route 66"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 37 -->
+  <div class="answer-card">
+    <div class="q-num">37</div>
+    <div class="q-content">
+      <div class="q-statement">For both routes, you must register by the end of July.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Route L: registrace kdykoliv před odjezdem (stačí den předem). Route C: registrace do 31. července. Podmínka platí <strong>jen pro Route C</strong>, ne pro obě.
+        <div class="key-phrase">Čti detaily každé trasy zvlášť – jsou různé!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 38 -->
+  <div class="answer-card">
+    <div class="q-num">38</div>
+    <div class="q-content">
+      <div class="q-statement">Both routes start at the same place.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Route L odjíždí z parkoviště RouteRide v LA. Route C odjíždí z čerpací stanice <em>naproti</em> parkovišti RouteRide v Chicagu. Jsou to různá místa (různá města!).
+        <div class="key-phrase">LA ≠ Chicago – různá startovní místa.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 39 -->
+  <div class="answer-card">
+    <div class="q-num">39</div>
+    <div class="q-content">
+      <div class="q-statement">Five RouteRide employees will accompany you on both Route L and Route C.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Route L: Pedro + Nia (průvodci) + zdravotní sestra + mechanik + řidič = <strong>5 zaměstnanců</strong> ✓. Route C: Shanice (průvodkyně + zdravotní sestra v jedné osobě) + Old Mike (průvodce + mechanik v jedné osobě) + Jim (řidič) = <strong>3 zaměstnanci</strong>. Tvrzení říká „five on BOTH routes", ale Route C má jen 3.
+        <div class="key-phrase">Past: role jsou u Route C sloučené – Shanice i Old Mike dělají dvě práce, takže jsou 3, ne 5.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. ČÁST – George -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">7. část · Otázky 40–44</span>
+    <h3>Dopis George – Multiple Choice</h3>
+  </div>
+
+  <!-- 40 -->
+  <div class="answer-card">
+    <div class="q-num">40</div>
+    <div class="q-content">
+      <div class="q-statement">Why did George decide to write a letter to Celia?</div>
+      <span class="answer-pill pill-A">✓ A – he found it romantic</span>
+      <div class="explanation">
+        George viděl kolegu psát dopis ručně a napsal: <em>"How romantic!"</em> To byl hlavní impuls. Důležité: George <strong>má</strong> přístup k internetu (<em>"despite having the opportunity to be online here"</em>), telefon nefungoval kolegovi, ne jemu. Důvod nebyl ani nostalgie pro Celii.
+        <div class="key-phrase">Záludnosti: B) telefon, který nefungoval, nebyl jeho, C) internet měl k dispozici.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 41 -->
+  <div class="answer-card">
+    <div class="q-num">41</div>
+    <div class="q-content">
+      <div class="q-statement">What is NOT true about George (2nd paragraph)?</div>
+      <span class="answer-pill pill-B">✓ B – He cried after completing his FIRST 12-hour shift</span>
+      <div class="explanation">
+        George píše, že měl <em>"a 12-hour shift, and then two more shifts just as long – Three days in a row!"</em> a pak zaplakal. Neplakal po <strong>první</strong> směně, ale po třech dnech v řadě. Ostatní tvrzení A), C), D) jsou pravdivá.
+        <div class="key-phrase">Pozor na přesné číslování a pořadí událostí!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 42 -->
+  <div class="answer-card">
+    <div class="q-num">42</div>
+    <div class="q-content">
+      <div class="q-statement">When does George miss Celia the most?</div>
+      <span class="answer-pill pill-A">✓ A – while seeing couples holding hands</span>
+      <div class="explanation">
+        Text říká: <em>"none is worse than seeing couples holding hands."</em> Slovo <strong>none is worse</strong> = nic není horší = to je chvíle, kdy mu Celia chybí <strong>nejvíce</strong>. Ostatní možnosti také způsobují stesk, ale jsou méně intenzivní.
+        <div class="key-phrase">Klíčové: "none is worse than" = nic není horší než... nejsilnější tvrzení, případně superlativ – hledej ho!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 43 -->
+  <div class="answer-card">
+    <div class="q-num">43</div>
+    <div class="q-content">
+      <div class="q-statement">How many times has George seen Celia in his dreams in Haiti?</div>
+      <span class="answer-pill pill-D">✓ D – never</span>
+      <div class="explanation">
+        George píše: <em>"Why haven't you been in any of mine yet?"</em> a <em>"And now? Nothing."</em> Celia se mu v Haiti ještě ve snu <strong>nezjevila</strong>. Záměna: 3× se mu zdálo o mamince – to je past!
+        <div class="key-phrase">Past: "three times" platí pro mámu, ne pro Celii.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 44 -->
+  <div class="answer-card">
+    <div class="q-num">44</div>
+    <div class="q-content">
+      <div class="q-statement">Where do George and Celia plan to see each other next month?</div>
+      <span class="answer-pill pill-C">✓ C – in Orlando</span>
+      <div class="explanation">
+        George píše: <em>"I just can't afford to go any further than Orlando"</em> a Celia přiletí z Paříže. Setkat se plánují v Orlandu. NYC bylo Celiino přání, které George nemůže splnit. Paris je místo Celiina odletu, ne setkání.
+        <div class="key-phrase">Záludnosti: NYC, Paris a Port-au-Prince jsou v textu zmíněna, ale jako jiná místa.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. ČÁST – Mini Zoo -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">8. část · Otázky 45–49</span>
+    <h3>Mini Zoo – Přiřazování</h3>
+  </div>
+
+  <!-- tabulka kritérií -->
+  <div style="background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;font-size:0.82rem;color:var(--muted);overflow-x:auto;">
+    <strong style="color:var(--accent2);">Shrnutí nabídek (A–G):</strong><br><br>
+    <table style="border-collapse:collapse;width:100%;font-size:0.8rem;">
+      <tr style="color:var(--accent);">
+        <th style="text-align:left;padding:0.2rem 0.5rem;border-bottom:1px solid var(--border);">Zoo</th>
+        <th style="padding:0.2rem 0.5rem;border-bottom:1px solid var(--border);">Km od Belfastu</th>
+        <th style="padding:0.2rem 0.5rem;border-bottom:1px solid var(--border);">Zvířata</th>
+        <th style="padding:0.2rem 0.5rem;border-bottom:1px solid var(--border);">Psi</th>
+        <th style="padding:0.2rem 0.5rem;border-bottom:1px solid var(--border);">Otevřeno</th>
+      </tr>
+      <tr><td style="padding:0.2rem 0.5rem">A</td><td style="padding:0.2rem 0.5rem;text-align:center">40 km</td><td style="padding:0.2rem 0.5rem">kozy, kuřata, ovce, kachny</td><td style="padding:0.2rem 0.5rem;color:var(--red)">NE</td><td style="padding:0.2rem 0.5rem">So+Ne</td></tr>
+      <tr style="background:#ffffff05"><td style="padding:0.2rem 0.5rem">B</td><td style="padding:0.2rem 0.5rem;text-align:center">20 km</td><td style="padding:0.2rem 0.5rem">kuřata, kachny</td><td style="padding:0.2rem 0.5rem;color:var(--green)">ANO</td><td style="padding:0.2rem 0.5rem">pouze Ne</td></tr>
+      <tr><td style="padding:0.2rem 0.5rem">C</td><td style="padding:0.2rem 0.5rem;text-align:center">49 km</td><td style="padding:0.2rem 0.5rem">ovce, kozy, kuřata</td><td style="padding:0.2rem 0.5rem;color:var(--green)">ANO</td><td style="padding:0.2rem 0.5rem">každý den kromě So</td></tr>
+      <tr style="background:#ffffff05"><td style="padding:0.2rem 0.5rem">D</td><td style="padding:0.2rem 0.5rem;text-align:center">26 km</td><td style="padding:0.2rem 0.5rem">kozy, ovce, poníci (kachny a kuřata za měsíc)</td><td style="padding:0.2rem 0.5rem;color:var(--red)">NE</td><td style="padding:0.2rem 0.5rem">So+Ne</td></tr>
+      <tr><td style="padding:0.2rem 0.5rem">E</td><td style="padding:0.2rem 0.5rem;text-align:center">12 km</td><td style="padding:0.2rem 0.5rem">kozy, poníci, ovce, krávy, husy</td><td style="padding:0.2rem 0.5rem;color:var(--green)">ANO</td><td style="padding:0.2rem 0.5rem">každý den kromě Ne</td></tr>
+      <tr style="background:#ffffff05"><td style="padding:0.2rem 0.5rem">F</td><td style="padding:0.2rem 0.5rem;text-align:center">27 km (aktuálně 37 km!)</td><td style="padding:0.2rem 0.5rem">kozy, ovce, kuřata, kachny</td><td style="padding:0.2rem 0.5rem;color:#f09040)">Podmíněně</td><td style="padding:0.2rem 0.5rem">So+Ne</td></tr>
+      <tr><td style="padding:0.2rem 0.5rem">G</td><td style="padding:0.2rem 0.5rem;text-align:center">28 km</td><td style="padding:0.2rem 0.5rem">kachny, kuřata</td><td style="padding:0.2rem 0.5rem;color:var(--green)">ANO</td><td style="padding:0.2rem 0.5rem">pouze So</td></tr>
+    </table>
+    <em style="font-size:0.76rem;">Poznámka k F: psi smějí vstoupit, ale musí čekat venku na hřišti – to splňuje "dogs allowed" jen částečně.</em>
+  </div>
+
+  <!-- 45 -->
+  <div class="answer-card">
+    <div class="q-num">45</div>
+    <div class="q-content">
+      <div class="q-statement">The Murphys – SO, kozy+ovce, do 30 km, pes MUSÍ vstoupit</div>
+      <span class="answer-pill pill-E">✓ E</span>
+      <div class="explanation">
+        Potřebují: sobotu, kozy a ovce, max 30 km, psi povoleni. Zoo E: 12 km, kozy+ovce, psi ANO, otevřeno každý den kromě neděle ✓. Zoo A má kozy a ovce, ale psy nepustí. Zoo D je otevřena v sobotu a má kozy a ovce, ale psy nepustí.
+      </div>
+    </div>
+  </div>
+
+  <!-- 46 -->
+  <div class="answer-card">
+    <div class="q-num">46</div>
+    <div class="q-content">
+      <div class="q-statement">The Kellys – NE, kozy+ovce, do 30 km, pes ideálně ano (ale nevadí ne)</div>
+      <span class="answer-pill pill-D">✓ D</span>
+      <div class="explanation">
+        Potřebují: neděli, kozy a ovce, max 30 km. Zoo D: 26 km, kozy+ovce, otevřena v neděli ✓ – psi nejsou povoleni, ale Kellys to akceptují. Zoo A má 40 km (příliš daleko), Zoo C je 49 km.
+      </div>
+    </div>
+  </div>
+
+  <!-- 47 -->
+  <div class="answer-card">
+    <div class="q-num">47</div>
+    <div class="q-content">
+      <div class="q-statement">The McLaughlins – SO, kuřata+kachny, do 50 km, pes MUSÍ vstoupit</div>
+      <span class="answer-pill pill-G">✓ G</span>
+      <div class="explanation">
+        Potřebují: sobotu, kuřata a kachny, max 50 km, psi povoleni. Zoo G: 28 km, kachny+kuřata, psi ANO, otevřena pouze v sobotu ✓. Zoo B má kuřata a kachny a povoluje psy, ale je otevřena <em>pouze v neděli</em>!
+        <div class="key-phrase">Past: Zoo B vypadá ideálně, ale je otevřena jen v neděli.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 48 -->
+  <div class="answer-card">
+    <div class="q-num">48</div>
+    <div class="q-content">
+      <div class="q-statement">The Hegartys – NE, ovce+kozy, do 50 km, pes MUSÍ vstoupit</div>
+      <span class="answer-pill pill-C">✓ C</span>
+      <div class="explanation">
+        Potřebují: neděli, ovce a kozy, max 50 km, psi povoleni. Zoo C: 49 km, ovce+kozy, psi ANO, otevřena každý den kromě soboty (= v neděli ano) ✓. Zoo E je zavřena v neděli, Zoo A psy nepustí.
+        <div class="key-phrase">C je 49 km – těsně pod hranicí 50 km, ale stačí to!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 49 -->
+  <div class="answer-card">
+    <div class="q-num">49</div>
+    <div class="q-content">
+      <div class="q-statement">The Gallaghers – NE, kachny+kuřata, do 30 km, pes ideálně ano (ale nevadí ne)</div>
+      <span class="answer-pill pill-B">✓ B</span>
+      <div class="explanation">
+        Potřebují: neděli, kachny a kuřata, max 30 km. Zoo B: 20 km, kachny+kuřata, otevřena <em>pouze v neděli</em>, psi ANO ✓. Zoo G má kuřata a kachny a je blízko, ale je otevřena pouze v sobotu.
+        <div class="key-phrase">G vs B: G = jen sobota, B = jen neděle – klíčový rozdíl!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEST 2
+═══════════════════════════════════════════════════ -->
+<div id="test2">
+  <div class="test-header">
+    <span class="test-badge">Test 2</span>
+    <h2>Maturitní test – Comcast, Zack Pinsent, Školní výlety</h2>
+  </div>
+
+  <!-- 6. ČÁST – Comcast -->
+  <div class="part-header">
+    <span class="part-label">6. část · Otázky 30–39</span>
+    <h3>The Comcast Building – Pravda / Nepravda</h3>
+  </div>
+
+  <!-- 30 -->
+  <div class="answer-card">
+    <div class="q-num">30</div>
+    <div class="q-content">
+      <div class="q-statement">The Comcast Building is located south of the Empire State Building.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text: <em>"the Empire State Building which lies south of the Comcast Building"</em> – ESB leží <strong>jižně od</strong> Comcast Building, tedy Comcast je na severu. Tvrzení má obrácenou orientaci!
+        <div class="key-phrase">Past: záměna sever/jih – přečti velmi pozorně.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 31 -->
+  <div class="answer-card">
+    <div class="q-num">31</div>
+    <div class="q-content">
+      <div class="q-statement">Two companies have owned the Comcast Building so far.</div>
+      <span class="answer-pill pill-P">✓ PRAVDA</span>
+      <div class="explanation">
+        Budova patřila rodině Rockefellerů, pak ji koupila firma Tishman Speyer Properties – celkem <strong>2 vlastníci</strong>. Deloitte je jen nájemce, nikoliv vlastník.
+        <div class="key-phrase">Rozlišuj: owner (vlastník) ≠ tenant (nájemce)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 32 -->
+  <div class="answer-card">
+    <div class="q-num">32</div>
+    <div class="q-content">
+      <div class="q-statement">The last time the whole Comcast Building was repaired was in 2014.</div>
+      <span class="answer-pill pill-P">✓ PRAVDA</span>
+      <div class="explanation">
+        Text: <em>"the last total repair of the building, which was carried out in 2014."</em> V roce 2019 proběhla jen pravidelná <strong>kontrola</strong>, ne celková oprava.
+        <div class="key-phrase">Klíčové: "total repair" = 2014, "checked" = 2019</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 33 -->
+  <div class="answer-card">
+    <div class="q-num">33</div>
+    <div class="q-content">
+      <div class="q-statement">There are 60 lifts altogether in the Comcast Building.</div>
+      <span class="answer-pill pill-P">✓ PRAVDA</span>
+      <div class="explanation">
+        Jeden výtah jede na střechu, dalších 59 obsluhuje ostatní patra: <strong>1 + 59 = 60</strong> výtahů celkem.
+        <div class="key-phrase">Vypočítej: 1 (střecha) + 59 (ostatní) = 60</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 34 -->
+  <div class="answer-card">
+    <div class="q-num">34</div>
+    <div class="q-content">
+      <div class="q-statement">You can see John F. Kennedy International Airport from the roof.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text: <em>"visitors can even see planes approaching and leaving JFK... If the roof was a few feet higher, the airport itself could be seen."</em> Letiště <strong>není</strong> vidět – viditelná jsou jen letadla, která přistávají a odlétají.
+        <div class="key-phrase">Záludná: letiště ne, letadla ano. Čti přesně!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 35 -->
+  <div class="answer-card">
+    <div class="q-num">35</div>
+    <div class="q-content">
+      <div class="q-statement">The weather radar on top is still used for weather forecasts.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text: <em>"it is now out of service"</em> – radar fungoval 35 let, ale dnes <strong>není v provozu</strong>. Zůstává kvůli historické hodnotě.
+        <div class="key-phrase">Klíčové: "out of service" = nefunguje</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 36 -->
+  <div class="answer-card">
+    <div class="q-num">36</div>
+    <div class="q-content">
+      <div class="q-statement">The Rainbow Room and the NBC studios are on the same floor.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Rainbow Room: na <strong>posledním (66.) patře</strong>. NBC Studios: v <strong>prvních čtrnácti patrech</strong>. Jsou to tedy různá patra.
+        <div class="key-phrase">Rainbow Room = 66. patro, NBC = 1.–14. patro</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 37 -->
+  <div class="answer-card">
+    <div class="q-num">37</div>
+    <div class="q-content">
+      <div class="q-statement">On weekdays, the Rainbow Room has more visitors than the NBC studios.</div>
+      <span class="answer-pill pill-P">✓ PRAVDA</span>
+      <div class="explanation">
+        Rainbow Room: přes <strong>1 000</strong> návštěvníků denně. NBC Studios: maximálně 150 za hodinu, celkově <strong>méně než 1 000</strong> za den. Rainbow Room má tedy více návštěvníků.
+        <div class="key-phrase">Porovnej čísla: 1000+ vs. méně než 1000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 38 -->
+  <div class="answer-card">
+    <div class="q-num">38</div>
+    <div class="q-content">
+      <div class="q-statement">The Rainbow Room and the NBC studios both stopped working for some time in the past.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Rainbow Room: zavřena čtyřikrát (rekonstrukce, finanční problémy) ✓. NBC Studios: <em>"The studios have never stopped working for a single day."</em> Turné bylo jednou přerušeno, ale studia provoz nezastavila.
+        <div class="key-phrase">Rozlišuj: tours stopped ≠ studios stopped working</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 39 -->
+  <div class="answer-card">
+    <div class="q-num">39</div>
+    <div class="q-content">
+      <div class="q-statement">The Comcast Building was damaged by Hurricane Sandy in 2012.</div>
+      <span class="answer-pill pill-N">✗ NEPRAVDA</span>
+      <div class="explanation">
+        Text: <em>"The skyscraper itself remained whole and all right although it was expected to be damaged."</em> Budova poškozena <strong>nebyla</strong> – přestála hurikán bez újmy.
+        <div class="key-phrase">"remained whole" = zůstala v pořádku = nebyla poškozena</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. ČÁST – Zack Pinsent -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">7. část · Otázky 40–44</span>
+    <h3>Zack Pinsent – Multiple Choice</h3>
+  </div>
+
+  <!-- 40 -->
+  <div class="answer-card">
+    <div class="q-num">40</div>
+    <div class="q-content">
+      <div class="q-statement">At what age did Zack begin to wear 1810s-style clothing?</div>
+      <span class="answer-pill pill-B">✓ B – at age 14</span>
+      <div class="explanation">
+        Text: <em>"Zack burned his last pair of jeans in a symbolic fire when he was 14."</em> Od 14 let nosí historické oblečení. Ve věku 11 let je to past – 11 let nosil oblečení celkem, ale začal ve 14. Ve 25 je mu teď.
+        <div class="key-phrase">19 = věk, kdy začal navrhovat oblečení pro ostatní, ne sobě.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 41 -->
+  <div class="answer-card">
+    <div class="q-num">41</div>
+    <div class="q-content">
+      <div class="q-statement">Why did Zack first dress in historical clothes?</div>
+      <span class="answer-pill pill-D">✓ D – to try out clothes he'd discovered</span>
+      <div class="explanation">
+        Rodina po stěhování našla krabici s oblečením pradědečka z doby Regency. Zackovi padlo, tak ho začal nosit. Klíčová věta: <em>"I found that the suits fit me well, so I started wearing them."</em> Nebyla to láska k historii, ani touha po pozornosti.
+        <div class="key-phrase">Původní důvod byl prostý: oblečení mu sedělo.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 42 -->
+  <div class="answer-card">
+    <div class="q-num">42</div>
+    <div class="q-content">
+      <div class="q-statement">Where did Zack last wear modern clothes?</div>
+      <span class="answer-pill pill-A">✓ A – to a party</span>
+      <div class="explanation">
+        Zack si koupil džíny a koženou bundu na tematický večírek ze 50. let u spolužáka. To bylo naposledy, kdy měl na sobě moderní oblečení. V obchodě je jen koupil, ale naposledy je <strong>nosil</strong> na večírku.
+        <div class="key-phrase">Past: v obchodě je koupil, ale nosil je naposledy na večírku.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 43 -->
+  <div class="answer-card">
+    <div class="q-num">43</div>
+    <div class="q-content">
+      <div class="q-statement">Who sews Zack's historical clothes?</div>
+      <span class="answer-pill pill-C">✓ C – Zack himself</span>
+      <div class="explanation">
+        Text: <em>"Zack now designs and hand-sews all his sets of clothes himself."</em> Dříve mu oblečení vybírala maminka, strýc mu byl poradcem – ale šití zvládá sám.
+        <div class="key-phrase">Máma a strýc hráli roli dříve, teď šije sám.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 44 -->
+  <div class="answer-card">
+    <div class="q-num">44</div>
+    <div class="q-content">
+      <div class="q-statement">What is the usual reaction of people when they see Zack?</div>
+      <span class="answer-pill pill-B">✓ B – curious</span>
+      <div class="explanation">
+        Text: <em>"Everywhere I go, people are keen on knowing more about my clothes."</em> – "keen on knowing" = zvědaví. Zack čekal negativní reakce, ale nikdy nenastaly. Ani fotbaloví fanoušci nejsou agresivní.
+        <div class="key-phrase">"keen on knowing" = curious (zvědavý)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. ČÁST – Školní výlety -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">8. část · Otázky 45–49</span>
+    <h3>Školní výlety – Přiřazování</h3>
+  </div>
+
+  <!-- 45 -->
+  <div class="answer-card">
+    <div class="q-num">45</div>
+    <div class="q-content">
+      <div class="q-statement">Grapevine – hory, chalupy (ne stany), sdílená kuchyně, sportoviště</div>
+      <span class="answer-pill pill-F">✓ F – The Dogskills Resort</span>
+      <div class="explanation">
+        Dogskills: hory (Grampian), chalupy ✓, sdílená kuchyně + restaurace ✓, sportoviště (baseballové hřiště) ✓. Podmínka "žádné stany" je splněna – stany tam nejsou zmíněny jako možnost.
+      </div>
+    </div>
+  </div>
+
+  <!-- 46 -->
+  <div class="answer-card">
+    <div class="q-num">46</div>
+    <div class="q-content">
+      <div class="q-statement">Coral Spring – hory, hostel, kulturní akce, jídlo jedno či druhé</div>
+      <span class="answer-pill pill-A">✓ A – The Shallows Resort</span>
+      <div class="explanation">
+        Shallows: hory (Blue Mountains) ✓, ubytování v hostel/chalupách/stanech ✓, sdílená kuchyně ✓, kulturní akce (venkovní kino) ✓. Žádná restaurace – ale Coral Spring to akceptuje.
+      </div>
+    </div>
+  </div>
+
+  <!-- 47 -->
+  <div class="answer-card">
+    <div class="q-num">47</div>
+    <div class="q-content">
+      <div class="q-statement">H. C. Dylton – moře, stany, sdílená kuchyně, sportoviště</div>
+      <span class="answer-pill pill-D">✓ D – The Mareford Resort</span>
+      <div class="explanation">
+        Mareford: u moře ✓, stany ✓, sdílená kuchyně ✓, sportoviště (bazén + 2 tenisové kurty) ✓. Resort E (Pressard) vypadá lákavě – má stany a sportoviště – ale je <strong>v horách 20 km od moře</strong>, ne u moře. A zakazuje vlastní vaření (jen restaurace). Obojí H.C. Dylton vylučuje.
+        <div class="key-phrase">Past: E má stany i sportoviště, ale je v horách, ne u moře!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 48 -->
+  <div class="answer-card">
+    <div class="q-num">48</div>
+    <div class="q-content">
+      <div class="q-statement">Redlands – moře, chalupy, kulturní akce, restaurace (MUSÍ být)</div>
+      <span class="answer-pill pill-G">✓ G – The Kearcove Resort</span>
+      <div class="explanation">
+        Kearcove: u moře (Cornwall) ✓, chalupy ✓, kulturní akce (taneční parket + živá hudba) ✓, restaurace ✓. Resort B má chalupy a restauraci, ale je v horách, ne u moře.
+      </div>
+    </div>
+  </div>
+
+  <!-- 49 -->
+  <div class="answer-card">
+    <div class="q-num">49</div>
+    <div class="q-content">
+      <div class="q-statement">Silverleaf – hory, stany, sportoviště, jídlo nevadí ani tak</div>
+      <span class="answer-pill pill-C">✓ C – The Wrentrood Resort</span>
+      <div class="explanation">
+        Silverleaf chce: hory ✓, stany ✓, sportoviště ✓, jídlo není podmínka. Resort C (Wrentrood): hory (Helve Mountains) ✓, velká plocha pro stany ✓, sportoviště (2 tenisové kurty) ✓, restaurace (vlastní vaření zakázáno, ale Silverleaf na formátu jídla netrvá) ✓.
+        <br><br>
+        Resort E (Pressard) vypadá podobně – hory, stany – ale text výslovně říká: <em>"There are no sport facilities in the resort."</em> To Silverleaf vylučuje.
+        <div class="key-phrase">Klíčový rozdíl: E nemá sportoviště, C (Wrentrood) ano – a na způsobu stravování Silverleaf nezáleží.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TEST 3 – B1
+═══════════════════════════════════════════════════ -->
+<div id="test3">
+  <div class="test-header">
+    <span class="test-badge b1">Test 3</span>
+    <h2>B1 Preliminary – Succeed in B1</h2>
+  </div>
+
+  <!-- PART 1 -->
+  <div class="part-header">
+    <span class="part-label">Part 1 · Questions 1–5</span>
+    <h3>Krátké texty – správná odpověď</h3>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">1</div>
+    <div class="q-content">
+      <div class="q-statement">SMS od mámy Timovi (Scooby, nádobí)</div>
+      <span class="answer-pill pill-C">✓ C – Tim must walk the dog and clean the plates.</span>
+      <div class="explanation">
+        Máma žádá: udělat nádobí + vyvenčit Scoobyho. A) říká, že máma venčila psa – ne, to má udělat Tim. B) vaření v textu není.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">2</div>
+    <div class="q-content">
+      <div class="q-statement">E-mail od Jamese Marii – jede do Doveru, "do you fancy meeting?"</div>
+      <span class="answer-pill pill-C">✓ C – if Maria will be available at the time of his visit</span>
+      <div class="explanation">
+        James se ptá, zda se Maria může setkat – <em>"do you fancy meeting?"</em> Neptá se na počasí ani zda Maria chce přijet do Glasgow.
+        <div class="key-phrase">"do you fancy meeting?" = Chceš se setkat?</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">3</div>
+    <div class="q-content">
+      <div class="q-statement">Oznámení: 16. října výběrové třídy pro fotbalové týmy 1 a 2</div>
+      <span class="answer-pill pill-B">✓ B – The football teams will be chosen depending on how well people play on Saturday.</span>
+      <div class="explanation">
+        Jde o "trials" (výběrové zkoušky), kde se ukáže, kdo hraje dobře a bude vybrán do týmu. A) říká, že se hraje zápas – ne, jsou to zkoušky. C) Johnson organizuje zkoušky, ale sám na ně nejde.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">4</div>
+    <div class="q-content">
+      <div class="q-statement">Příbalový leták – 1 tableta 3× denně, při nevolnosti zavolat lékaře</div>
+      <span class="answer-pill pill-A">✓ A – You must take all the pills unless they make you ill.</span>
+      <div class="explanation">
+        Instrukce říká: ber tablety dokud nedojdou, POKUD se nebudeš cítit špatně (pak přestaň a volej lékaře). B) je špatně – tablety se berou 3× denně, ne každé 3 dny. C) je špatně – lékaře voláš při potížích, ne když tablety dojdou.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">5</div>
+    <div class="q-content">
+      <div class="q-statement">Cedule v parku – Zákaz odhazování odpadků, pokuta až £100</div>
+      <span class="answer-pill pill-B">✓ B – If you are caught dropping litter, you may have to pay a fine.</span>
+      <div class="explanation">
+        Text hrozí pokutou při přistižení. A) je špatně – odhazovat nelze vůbec, ne jen u košů. C) je opak pravdy – bez koše musíš odpadek odnést, ne odhodit.
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 2 -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">Part 2 · Questions 6–10</span>
+    <h3>Ubytování – Přiřazování osob k hotelům</h3>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">6</div>
+    <div class="q-content">
+      <div class="q-statement">Anthony Bitters – businessman, potřebuje být u hlavních silnic, stálý kontakt s kanceláří</div>
+      <span class="answer-pill pill-B">✓ B – The Corporate Hotel</span>
+      <div class="explanation">
+        Corporate Hotel: polovina cesty Birmingham–Londýn, půl míle od dálnice M40, pokoje s "office features" (internet, telefonní linky). Přesně co Anthony potřebuje.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">7</div>
+    <div class="q-content">
+      <div class="q-statement">John & Alex – dobrodružství, stany, blízko přírody, luxus nepotřebují</div>
+      <span class="answer-pill pill-D">✓ D – Peak Campsite</span>
+      <div class="explanation">
+        Peak Campsite: vedle Lake District, hory a jezera, základní kemp, vlastní stan a vybavení. Přesný profil – žádný luxus, příroda, stany.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">8</div>
+    <div class="q-content">
+      <div class="q-statement">Rodina Petersonů – jedou na sever, jednu noc, jednoduchý hotel u dálnice</div>
+      <span class="answer-pill pill-G">✓ G – Travellers' Lodge</span>
+      <div class="explanation">
+        Travellers' Lodge: střed Anglie, půl míle od M1 (sever–jih), jednoduchý, levný, sleva pro děti, snídaně v ceně. Ideální zastávka na cestě na sever.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">9</div>
+    <div class="q-content">
+      <div class="q-statement">Stephanie & Sophie – turistika, jednoduché čisté místo, ne camping</div>
+      <span class="answer-pill pill-A">✓ A – The Countryside Inn</span>
+      <div class="explanation">
+        Countryside Inn: tradiční B&B v údolí, jednoduché a čisté, low prices, krásná příroda. Není to camping, je to hotel. Ideální pro turistky, které jsou celý den venku.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">10</div>
+    <div class="q-content">
+      <div class="q-statement">George & Maria – výročí, luxus, mimo město, klid a bez stresu</div>
+      <span class="answer-pill pill-E">✓ E – Hotel Amour</span>
+      <div class="explanation">
+        Hotel Amour: jižní pobřeží, výhledy na západ slunce, ideální pro páry a líbánky, luxusně zařízené pokoje, šampaňské. Klid, romantika, žádný city stres. Hotel Royal je luxusní, ale je v centru města – to George s Marií nechtějí.
+        <div class="key-phrase">Hotel Royal je v centru, Hotel Amour je mimo město.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 3 -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">Part 3 · Questions 11–15</span>
+    <h3>Tom Cruise – Multiple Choice</h3>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">11</div>
+    <div class="q-content">
+      <div class="q-statement">When Sarah was asked to interview the person she admired...</div>
+      <span class="answer-pill pill-A">✓ A – she never thought she was likely to talk to Tom Cruise</span>
+      <div class="explanation">
+        Text: <em>"I had never thought I could actually interview Tom Cruise."</em> Přesná shoda s možností A.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">12</div>
+    <div class="q-content">
+      <div class="q-statement">Sarah says that Tom Cruise...</div>
+      <span class="answer-pill pill-D">✓ D – is very likeable as a person</span>
+      <div class="explanation">
+        Text: <em>"He was so pleasant and friendly"</em> – příjemný, milý. Sarah se s ním cítila dobře a byl laskavý. Souhlasil s rozhovorem ochotně.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">13</div>
+    <div class="q-content">
+      <div class="q-statement">What does Tom say about other people who try to become actors?</div>
+      <span class="answer-pill pill-B">✓ B – He was more fortunate at certain points in his career.</span>
+      <div class="explanation">
+        Tom říká: <em>"I'm lucky"</em> a <em>"Lots of people would love to do this job, but they didn't get the chances that I did."</em> Uznává, že měl štěstí – ostatní neměli takové příležitosti, ne že by byli méně pracovití.
+        <div class="key-phrase">"didn't get the chances" = neměli takové těstí ohledně životních příležitostí</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">14</div>
+    <div class="q-content">
+      <div class="q-statement">How does Tom describe his attitude to work?</div>
+      <span class="answer-pill pill-C">✓ C – He looks forward and wants to improve and develop.</span>
+      <div class="explanation">
+        Tom: <em>"I've always looked to the future... I feel I'm always developing as an actor... I want to challenge myself."</em> Hledí dopředu a chce se zlepšovat – přesně odpověď C.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">15</div>
+    <div class="q-content">
+      <div class="q-statement">What might Sarah say about Tom Cruise?</div>
+      <span class="answer-pill pill-C">✓ C – "Tom Cruise wouldn't be so successful if he didn't try and work so hard."</span>
+      <div class="explanation">
+        Sarah uzavírá: Tom uspěl díky talentu A osobní síle – vždy věděl, co chce, a dělal maximum. To odpovídá tvrzení, že bez tvrdé práce by úspěchu nedosáhl. Šance hrály roli, ale nejsou hlavním důvodem (to vylučuje A a B).
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 4 -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">Part 4 · Questions 16–20</span>
+    <h3>Identical Twins – Doplnění vět do textu</h3>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">16</div>
+    <div class="q-content">
+      <div class="q-statement">Mezera: "The only difference is her eyes. [16] She has one green, one blue."</div>
+      <span class="answer-pill pill-A">✓ H – Mine are both the same colour.</span>
+      <div class="explanation">
+        Autorka popisuje, jak vypadají identicky – rozdíl jsou jen sestřiny oči. Pak potřebujeme větu, která doplňuje: "moje oči jsou stejné barvy" → kontrastuje se sestřinýma očima různých barev. H = logické propojení.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">17</div>
+    <div class="q-content">
+      <div class="q-statement">Mezera: "It is complete chance, or just good luck. [17] Only thirty three out of a thousand births are twins."</div>
+      <span class="answer-pill pill-F">✓ F – And, of course, it is not that common.</span>
+      <div class="explanation">
+        Kontext: mít dvojčata je čistá náhoda → [17] → „pouze 33 z 1 000 porodů jsou dvojčata." Věta F = „a samozřejmě to není tak běžné" – přirozeně uvádí nízkou statistiku. Věta A ("Překvapivě je to celkem běžné") by odporovala hned následující větě o nízkém čísle 33/1 000.
+        <div class="key-phrase">F logicky předchází statistice 33/1000 – potvrzuje, že to není běžné.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">18</div>
+    <div class="q-content">
+      <div class="q-statement">Mezera: "But sometimes we are different, too. [18] However, when we were little we dressed in the same way..."</div>
+      <span class="answer-pill pill-E">✓ E – We don't wear the same clothes most of the time, either.</span>
+      <div class="explanation">
+        Kontext: "jsme někdy různé" → mezera → "ale jako malé jsme se oblékaly stejně." Věta E říká, že dnes nenosí stejné oblečení – a slovo "however" pak ukazuje kontrast s minulostí.
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">19</div>
+    <div class="q-content">
+      <div class="q-statement">Mezera: "I'm a swimmer. [19] Nobody can explain this fear. She won't even walk near the sea..."</div>
+      <span class="answer-pill pill-D">✓ D – Gina is terrified of water.</span>
+      <div class="explanation">
+        Autorka plave, sestra plave? Ne – mezera musí ukázat kontrast. D = "Gina má děs z vody" → to vysvětluje, proč nechodí k moři. Logická návaznost: "I swim, [but] Gina is terrified of water."
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">20</div>
+    <div class="q-content">
+      <div class="q-statement">Mezera: "...wants to be a tennis coach one day. [20] We are so similar and yet so different."</div>
+      <span class="answer-pill pill-B">✓ B – It's strange, don't you think?</span>
+      <div class="explanation">
+        Předposlední věta odstavce shrnuje, jak jsou si podobné a přitom různé. Věta B = rétorická otázka, která čtenáře zapojuje a přirozeně uzavírá celý text. Zbývající možnosti sem nezapadají.
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 5 -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">Part 5 · Questions 21–26</span>
+    <h3>Denmark – Výběr správného slova (gap-fill)</h3>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">21</div>
+    <div class="q-content">
+      <div class="q-statement">Denmark is the smallest... which (21).......... in northern Europe.</div>
+      <span class="answer-pill pill-B">✓ B – lie</span>
+      <div class="explanation">
+        "Lie" = nacházet se (o místech/zemích). "The countries of Scandinavia which lie in northern Europe." Lay = minulý čas lie, nebo pokládat. Locate = umístit (zvratné), set = zasadit/nastavit.
+        <div class="key-phrase">Lie/lay/lain = nacházet se (ne položit!)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">22</div>
+    <div class="q-content">
+      <div class="q-statement">It is probably best (22).......... for being home to the Vikings.</div>
+      <span class="answer-pill pill-B">✓ B – known</span>
+      <div class="explanation">
+        "Best known for" = nejlépe známý pro. Ustálená fráze v angličtině. "Felt, seen, heard" dávají jiný (špatný) smysl.
+        <div class="key-phrase">Fráze: "best known for" = nejznámější pro</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">23</div>
+    <div class="q-content">
+      <div class="q-statement">However, it has (23).......... one of the richest countries.</div>
+      <span class="answer-pill pill-D">✓ D – become</span>
+      <div class="explanation">
+        "It has become" = stalo se (present perfect). "Has bought/begun/brought" nedávají smysl v tomto kontextu.
+        <div class="key-phrase">Present perfect: has + past participle (become)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">24</div>
+    <div class="q-content">
+      <div class="q-statement">...refused to give up some of its (24).......... .</div>
+      <span class="answer-pill pill-B">✓ B – independence</span>
+      <div class="explanation">
+        Dánsko odmítalo těsněji spolupracovat s EU a vzdát se části své <strong>nezávislosti</strong>. "Activity, relationship, opportunity" nedávají smysl.
+        <div class="key-phrase">Kontextová logika: suverénní země a EU = independence</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">25</div>
+    <div class="q-content">
+      <div class="q-statement">The (25).......... is used to pay for a welfare system.</div>
+      <span class="answer-pill pill-C">✓ C – money</span>
+      <div class="explanation">
+        Daně jsou použity jako peníze (money) na financování sociálního systému. "World, country, work" nedávají smysl.
+        <div class="key-phrase">Kontext: vysoké daně → peníze → sociální systém</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">26</div>
+    <div class="q-content">
+      <div class="q-statement">...a welfare system, which (26).......... health care, benefits...</div>
+      <span class="answer-pill pill-D">✓ D – includes</span>
+      <div class="explanation">
+        "Which includes" = který zahrnuje. Systém <strong>zahrnuje</strong> zdravotní péči, dávky atd. "Consists" by vyžadovalo "consists of". "Adds, receives" – špatný smysl.
+        <div class="key-phrase">Fráze: "consists of" vs. "includes" (bez předložky)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 6 -->
+  <div class="part-header" style="margin-top:2.5rem">
+    <span class="part-label">Part 6 · Questions 27–32</span>
+    <h3>Sharks – Jedno slovo do mezery</h3>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">27</div>
+    <div class="q-content">
+      <div class="q-statement">sharks have more reasons to be afraid of people (27).......... people to be afraid of them.</div>
+      <span class="answer-pill pill-A">✓ than</span>
+      <div class="explanation">Srovnání = "more... than". Žraloci mají více důvodů bát se lidí <strong>než</strong> lidé jich.</div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">28</div>
+    <div class="q-content">
+      <div class="q-statement">people in a lot of countries, (28).......... Japan and Australia, eat sharks.</div>
+      <span class="answer-pill pill-A">✓ including</span>
+      <div class="explanation">Správná odpověď je jedno slovo: <strong>including</strong> = včetně. Uvádí příklady zemí. ("Like" nebo "such as" jsou alternativy, ale "including" je nejpřirozenější pro B1 úroveň a je jedno slovo.)</div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">29</div>
+    <div class="q-content">
+      <div class="q-statement">Sharks get caught in huge fishing nets, (29).......... do many other sea animals.</div>
+      <span class="answer-pill pill-A">✓ as</span>
+      <div class="explanation">"As do many other sea animals" = stejně jako mnozí jiní mořští živočichové. Jde o inverzi po "as". (Inverze - opačný slovosled, nejdřív je sloveso a potom až podmět, jako v otázkách.)</div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">30</div>
+    <div class="q-content">
+      <div class="q-statement">sharks are attracted by movement, (30).......... they see a person swimming, they could attack.</div>
+      <span class="answer-pill pill-A">✓ when</span>
+      <div class="explanation">Správná odpověď je <strong>when</strong> – „kdykoliv vidí člověka plavat." Spojka "if" by také šla, ale "when" lépe vystihuje obecnou pravidelnost (žraloci jsou obecně přitahováni pohybem).</div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">31</div>
+    <div class="q-content">
+      <div class="q-statement">(31).......... at the top of the food chain, sharks keep populations of other fish healthy.</div>
+      <span class="answer-pill pill-A">✓ Being</span>
+      <div class="explanation"><strong>Being</strong> at the top of the food chain = přechodníková vazba vyjadřující příčinu. „Přestože/protože jsou na vrcholu potravinového řetězce..." Jde o jedno slovo – "Although" nebo "Despite" by vyžadovaly více slov.</div>
+    </div>
+  </div>
+
+  <div class="answer-card">
+    <div class="q-num">32</div>
+    <div class="q-content">
+      <div class="q-statement">This is (32).......... we must act now as their time seems to be running out.</div>
+      <span class="answer-pill pill-A">✓ why</span>
+      <div class="explanation">"This is why" = to je důvod, proč. Uzavírá logiku textu: proto musíme jednat. Ustálená fráze.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     TIPY
+═══════════════════════════════════════════════════ -->
+<div id="tips" class="tips-section">
+  <h2>Jak se připravit na Reading test</h2>
+
+  <h3 class="tip-type-header">🌍 Obecné tipy (platí pro všechny typy)</h3>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>1. Přečti si zadání, text, otázky a potom text znovu a důkladně</h4>
+      <p>Nejdřív si přečti zadání, ať víš, co se po tobě obecně chce. Přečti si rychle text, ať znáš kontext. Potom si přečti konkrétní otázky – a pak hledej konkrétní odpověď v textu. Znáš kontext, víš, co hledáš, a čteš efektivněji.</p>
+    </div>
+    <div class="tip-card">
+      <h4>2. Hledej klíčová slova</h4>
+      <p>V otázce najdi klíčová slova (jméno, číslo, místo) a hledej je (nebo jejich synonymum) v textu.</p>
+    </div>
+    <div class="tip-card">
+      <h4>3. Pozor na past: „téměř pravda"</h4>
+      <p>Tvůrci testů záměrně formulují špatné odpovědi tak, aby zněly skoro správně. Vždy ověř každé slovo v textu.</p>
+    </div>
+    <div class="tip-card">
+      <h4>4. Neodpovídej z hlavy</h4>
+      <p>Vždy se vrať do textu. Co si myslíš, že je pravda, nemusí odpovídat tomu, co text říká. Podtrhni si, na co se ptá otázka, a kde v textu je přesně odpověď. Užitečné je také použít zvýrazňovače.</p>
+    </div>
+    <div class="tip-card">
+      <h4>5. Sleduj negace a výjimky</h4>
+      <p>Slova jako <em>not, never, only, except, unless, besides</em> zcela mění smysl věty. Podtrhuj je tužkou!</p>
+    </div>
+    <div class="tip-card">
+      <h4>6. Pracuj s časem</h4>
+      <p>Na každou otázku máš cca 1–2 minuty. Pokud se zasekneš, odhadni a jdi dál – vrať se na konci.</p>
+    </div>
+  </div>
+
+  <h3 class="tip-type-header">✓ / ✗ Pravda / Nepravda (6. část maturity)</h3>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>Jak funguje tento typ</h4>
+      <ul>
+        <li>Každé tvrzení odpovídá konkrétní části textu</li>
+        <li>Tvrzení bývají v pořadí, jak jdou informace v textu</li>
+        <li>Pokud nenajdeš důkaz pro „pravda", je to automaticky „nepravda"</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h4>Záludné formulace</h4>
+      <ul>
+        <li><strong>besides / except</strong> = negace obsahu ("kromě")</li>
+        <li><strong>south of / north of</strong> – záměna stran světa</li>
+        <li><strong>only / all / never / both</strong> – absolutní výrazy jsou pastí, dej si na ně pozor</li>
+        <li>Čísla a data – vždy přepočítej!</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="tip-type-header">🔤 Multiple Choice (7. část / Part 3)</h3>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>Metoda eliminace</h4>
+      <p>Nejdřív vyřaď možnosti, které jsou zjevně špatně. Pak porovnej zbývající dvě s textem. Hledej přesný důkaz pro správnou odpověď.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Synonyma a parafráze</h4>
+      <p>Správná odpověď téměř nikdy nepoužívá stejná slova jako text – je parafrázovaná. Trénuj rozpoznávat synonyma (např. <em>sunrise = just as the sun comes up</em>).</p>
+    </div>
+  </div>
+
+  <h3 class="tip-type-header">🔀 Přiřazování (8. část / Part 2)</h3>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>Vypiš si kritéria</h4>
+      <p>Pro každou osobu/rodinu si rychle vypiš 3–4 klíčová kritéria (den, vzdálenost, zvířata, podmínky). Pak porovnávej systematicky.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Vyřazuj nepřípustné</h4>
+      <p>Pokud nabídka nesplňuje byť jedno povinné kritérium → vyřaď ji. Zbyde méně možností k porovnání.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Pozor na „skryté" podmínky</h4>
+      <p>Čti detaily – aktuální cesta může být delší (opravy silnice), otevírací dny, zda jde pes dovnitř nebo jen na hřiště.</p>
+    </div>
+  </div>
+
+  <h3 class="tip-type-header">🧩 Gap-fill (Part 4, 5, 6 – B1)</h3>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>Part 4 – Chybějící věty</h4>
+      <ul>
+        <li>Čti větu před mezerou i za mezerou</li>
+        <li>Hledej logické spojení (kontrast, příčina, rozvití myšlenky)</li>
+        <li>Ověř, že chybějící věta neodporuje kontextu odstavce</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h4>Part 5 – Výběr slova</h4>
+      <ul>
+        <li>Hledej ustálené fráze (best known for, consists of...)</li>
+        <li>Zkontroluj gramatiku: správný čas, tvar slovesa</li>
+        <li>Zkoušej každou možnost v kontextu – zní přirozeně?</li>
+      </ul>
+    </div>
+    <div class="tip-card">
+      <h4>Part 6 – Jedno slovo</h4>
+      <ul>
+        <li>Nejčastěji: spojky (than, as, if, when, why), předložky, pomocná slovesa (pomáhají tvořit přísudek ve správném čase, například do/does, am/is/are/was/were, will/won't apod.)</li>
+        <li>Čti celou větu nahlas – co tam „chybí" zvukově?</li>
+        <li>Zkontroluj gramatické shodování (subject-verb)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="tip-type-header">📚 Jak se konkrétně připravovat</h3>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>Denní čtení anglicky</h4>
+      <p>Čti 10–15 minut anglicky každý den – BBC News, Wikipedia, cestovní letáky. Zvykáš si na různé styly textu.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Rozšiřování slovní zásoby</h4>
+      <p>Každý nový text = nová slovíčka. Zapiš si je se synonymy a příkladem v větě. Anki nebo Quizlet pomáhají s opakováním. Nebo si je zvýrazni zvýrazňovačem a význam si dopiš k nim přímo do textu, ať je nehledáš pokaždé znovu.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Procvičuj pastí</h4>
+      <p>Záměrně procvičuj negace: <em>not, never, only, besides, except, unless</em>. V každém textu je podtrhni a ověř, zda jim rozumíš.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Cvičné testy na čas</h4>
+      <p>Dělej cvičné testy s časomírou (každá část max 12–15 minut). Učíš se rozhodovat rychle a nepřemýšlet příliš dlouho.</p>
+    </div>
+    <div class="tip-card">
+      <h4>Kontroluj chyby analyticky</h4>
+      <p>Po každém testu neprojdi jen správné odpovědi – zjisti <em>proč</em> jsi udělala chybu. Záměna severu nebo jihu? Přehlédnutá negace? Špatné synonymum?</p>
+    </div>
+    <div class="tip-card">
+      <h4>Využij CZVV materiály</h4>
+      <p>Na stránkách Cermatu nebo třeba na statnimaturita-anglictina.cz jsou veřejně dostupné starší testy s klíči – ideální pro procvičování reálných maturitních zadání.</p>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const el = document.querySelector(a.getAttribute('href'));
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Animate cards on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.answer-card, .tip-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
